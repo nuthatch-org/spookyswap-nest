@@ -1,0 +1,34 @@
+[nest]
+name = "spooky"
+chain = "fantom"
+chain_id = 250
+rpc_urls = [
+    "https://rpcapi.fantom.network",
+    "https://rpc.fantom.network",
+]
+schema_version = 1
+block_timestamps = true
+
+[[contracts]]
+alias = "factory"
+address = "0x152ee697f2e276fa89e96742e9bb9ab1f2e61be3"
+start_block = 3795376
+abi = "abis/factory.json"
+events = ["PairCreated"]
+
+[[templates]]
+name = "pair"
+abi = "abis/pair.json"
+events = [
+    "Mint",
+    "Burn",
+    "Swap",
+    "Transfer",
+    "Sync",
+]
+
+[[factories]]
+watch = "factory"
+event = "PairCreated"
+child_param = "pair"
+template = "pair"

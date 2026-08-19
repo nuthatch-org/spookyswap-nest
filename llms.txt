@@ -1,0 +1,27 @@
+# nuthatch nest on fantom
+
+A self-hosted blockchain index. Query it locally; there is no third-party API.
+
+## Contracts
+- `factory` = 0x152ee697f2e276fa89e96742e9bb9ab1f2e61be3
+
+## Tables (one per contract event)
+- `factory__pair_created` - PairCreated(address,address,address,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, token0, token1, pair, arg3)
+- `pair__burn` - Burn(address,uint256,uint256,address) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, sender, amount0, amount1, to)
+- `pair__mint` - Mint(address,uint256,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, sender, amount0, amount1)
+- `pair__swap` - Swap(address,uint256,uint256,uint256,uint256,address) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, sender, amount0In, amount1In, amount0Out, amount1Out, to)
+- `pair__sync` - Sync(uint112,uint112) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve0, reserve1)
+- `pair__transfer` - Transfer(address,address,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, from, to, value)
+
+## Live HTTP API (run `nuthatch dev`)
+- `GET /`                    index status
+- `GET /tables`              every table with its columns
+- `GET /table/{name}?limit=N` recent rows of one table (hot + sealed)
+- `GET /entity/{id}`         one row by id (`{block:012}-{logindex:06}`)
+- `GET /sql?q=SELECT...`     read-only SQL; each table is a view named `{alias}__{event}`
+- `GET /balances?limit=N`    top holder balances (when an ERC-20 Transfer table is present)
+- `GET /balance/{address}`   one address's derived balance
+
+## MCP (for coding agents)
+Run `nuthatch mcp` (stdio) to expose tools: status, schema, tables, table, sql, entity,
+balance, top_balances. Fully offline against the local instance; nothing phones home.
