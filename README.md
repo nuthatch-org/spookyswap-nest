@@ -4,7 +4,7 @@ An installable Nuthatch nest for **SpookySwap** on Fantom Opera - the DEX factor
 creates.
 
 ```sh
-nuthatch init --from https://github.com/nightswatchhq/spookyswap-nest
+nuthatch init --from https://github.com/nuthatch-org/spookyswap-nest
 nuthatch dev --dir spookyswap-nest --window 81920 --seal-direct
 ```
 
